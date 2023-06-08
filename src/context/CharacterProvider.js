@@ -8,7 +8,7 @@
 //   - Display each skill in a row in a separate section. For example, Acrobatics 
 //     - for a character with 12 dexterity may look like `Acrobatics - points: 3 [+] [-] modifier (Dex): 2 total: 5`
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CharacterContext from "./CharacterContext";
 import { ATTRIBUTE_LIST } from "../data/ATTRIBUTE_LIST";
 import { SKILL_LIST } from "../data/SKILL_LIST";
@@ -30,6 +30,17 @@ const CharacterProvider = ({ children }) => {
     }))
   );
 
+  const calculateTotalPointsAvailable = () => {
+    const intelligenceAttribute = attributes.find((attribute) => attribute.name === 'Intelligence');
+    const intelligenceModifier = Math.floor((intelligenceAttribute.value - 10) / 2);
+    return 10 + 4 * intelligenceModifier;
+  };
+
+  const [totalPointsAvailable, setTotalPointsAvailable] = useState(calculateTotalPointsAvailable());
+
+  useEffect(() => {
+    setTotalPointsAvailable(calculateTotalPointsAvailable());
+  }, [attributes]);
 
   const incrementAttribute = (attributeName) => {
     setAttributes((prevAttribute) =>
@@ -58,7 +69,8 @@ const CharacterProvider = ({ children }) => {
         incrementAttribute,
         decrementAttribute,
         skills,
-        setSkills
+        setSkills,
+        totalPointsAvailable
       }}
     >
       {children}
