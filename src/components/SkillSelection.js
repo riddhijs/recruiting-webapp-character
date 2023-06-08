@@ -7,7 +7,9 @@ const SkillsSection = () => {
     const { attributes, totalPointsAvailable, skills, setSkills } = useContext(CharacterContext);
     const [totalAvailablePoints, setTotalAvailablePoints] = useState(totalPointsAvailable);
 
-    
+    useEffect(() => {
+        setTotalAvailablePoints(totalPointsAvailable - skills.reduce((total, skill) => total + skill.points, 0));
+      }, [totalPointsAvailable]);
     
       const calculateAbilityModifier = (abilityName) => {
         const attribute = attributes.find((attribute) => attribute.name === abilityName);
@@ -21,7 +23,6 @@ const SkillsSection = () => {
       };
 
       const incrementSkillPoints = (skillName) => {
-        console.log("totalAvailablePoints",totalAvailablePoints,totalPointsAvailable)
     
         const updatedSkills = skills.map((skill) => {
     
