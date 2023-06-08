@@ -5,6 +5,7 @@ import Attribute from "./wrapper/Attribute";
 import CharacterProvider from "./context/CharacterProvider";
 import AttributeControl from "./components/AttributeControls";
 import CharacterClass from "./components/CharacterClass";
+import SkillsSection from "./components/SkillSelection";
 function App() {
   // const [num, setNum] = useState(0);
   return (
@@ -12,6 +13,7 @@ function App() {
       <CharacterProvider>
         <AttributeControl />
         <CharacterClass/>
+        <SkillsSection/>
       </CharacterProvider>
     </div>
   );
