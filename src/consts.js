@@ -1,3 +1,6 @@
+
+//we can directly use this but i like to store data seprately 
+
 export const ATTRIBUTE_LIST = [
     'Strength',
     'Dexterity',
